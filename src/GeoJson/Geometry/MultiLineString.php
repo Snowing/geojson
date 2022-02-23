@@ -12,7 +12,7 @@ namespace GeoJson\Geometry;
  */
 class MultiLineString extends Geometry
 {
-    protected $type = 'MultiLineString';
+    protected string $type = 'MultiLineString';
 
     /**
      * Constructor.

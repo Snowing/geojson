@@ -12,7 +12,7 @@ namespace GeoJson\Geometry;
  */
 class Polygon extends Geometry
 {
-    protected $type = 'Polygon';
+    protected string $type = 'Polygon';
 
     /**
      * Constructor.

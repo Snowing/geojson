@@ -12,15 +12,12 @@ use GeoJson\Exception\UnserializationException;
  */
 class BoundingBox implements \JsonSerializable, JsonUnserializable
 {
-    /**
-     * @var array
-     */
-    protected $bounds;
+    protected array $bounds;
 
     /**
      * Constructor.
      *
-     * @param float[] $bounds
+     * @param  float[]  $bounds
      */
     public function __construct(array $bounds)
     {
@@ -35,7 +32,7 @@ class BoundingBox implements \JsonSerializable, JsonUnserializable
         }
 
         foreach ($bounds as $value) {
-            if ( ! is_int($value) && ! is_float($value)) {
+            if (!is_int($value) && !is_float($value)) {
                 throw new \InvalidArgumentException('BoundingBox values must be integers or floats');
             }
         }
@@ -67,12 +64,9 @@ class BoundingBox implements \JsonSerializable, JsonUnserializable
         return $this->bounds;
     }
 
-    /**
-     * @see JsonUnserializable::jsonUnserialize()
-     */
-    final public static function jsonUnserialize($json)
+    final public static function jsonUnserialize(mixed $json): mixed
     {
-        if ( ! is_array($json)) {
+        if (!is_array($json)) {
             throw UnserializationException::invalidValue('BoundingBox', $json, 'array');
         }
 

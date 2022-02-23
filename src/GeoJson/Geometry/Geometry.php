@@ -12,17 +12,12 @@ use GeoJson\GeoJson;
  */
 abstract class Geometry extends GeoJson
 {
-    /**
-     * @var array
-     */
-    protected $coordinates;
+    protected array $coordinates = [];
 
     /**
      * Return the coordinates for this Geometry object.
-     *
-     * @return array
      */
-    public function getCoordinates()
+    public function getCoordinates(): array
     {
         return $this->coordinates;
     }
@@ -30,11 +25,11 @@ abstract class Geometry extends GeoJson
     /**
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize(): mixed
     {
         $json = parent::jsonSerialize();
 
-        if (isset($this->coordinates)) {
+        if ($this->coordinates) {
             $json['coordinates'] = $this->coordinates;
         }
 

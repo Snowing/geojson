@@ -10,23 +10,20 @@ namespace GeoJson\Geometry;
  */
 class GeometryCollection extends Geometry implements \Countable, \IteratorAggregate
 {
-    protected $type = 'GeometryCollection';
+    protected string $type = 'GeometryCollection';
 
-    /**
-     * @var array
-     */
-    protected $geometries;
+    protected array $geometries = [];
 
     /**
      * Constructor.
      *
-     * @param Geometry[] $geometries
-     * @param CoordinateResolutionSystem|BoundingBox $arg,...
+     * @param  Geometry[]  $geometries
+     * @param  CoordinateResolutionSystem|BoundingBox  $arg,...
      */
     public function __construct(array $geometries)
     {
         foreach ($geometries as $geometry) {
-            if ( ! $geometry instanceof Geometry) {
+            if (!$geometry instanceof Geometry) {
                 throw new \InvalidArgumentException('GeometryCollection may only contain Geometry objects');
             }
         }
@@ -51,7 +48,7 @@ class GeometryCollection extends Geometry implements \Countable, \IteratorAggreg
      *
      * @return Geometry[]
      */
-    public function getGeometries()
+    public function getGeometries(): array
     {
         return $this->geometries;
     }
@@ -67,14 +64,18 @@ class GeometryCollection extends Geometry implements \Countable, \IteratorAggreg
     /**
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize(): mixed
     {
         return array_merge(
             parent::jsonSerialize(),
-            array('geometries' => array_map(
-                function(Geometry $geometry) { return $geometry->jsonSerialize(); },
-                $this->geometries
-            ))
+            [
+                'geometries' => array_map(
+                    function (Geometry $geometry) {
+                        return $geometry->jsonSerialize();
+                    },
+                    $this->geometries
+                )
+            ]
         );
     }
 }

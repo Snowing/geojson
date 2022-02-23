@@ -12,7 +12,7 @@ namespace GeoJson\Geometry;
  */
 class Point extends Geometry
 {
-    protected $type = 'Point';
+    protected string $type = 'Point';
 
     /**
      * Constructor.

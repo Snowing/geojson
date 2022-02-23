@@ -12,12 +12,9 @@ use GeoJson\GeoJson;
  */
 class FeatureCollection extends GeoJson implements \Countable, \IteratorAggregate
 {
-    protected $type = 'FeatureCollection';
+    protected string $type = 'FeatureCollection';
 
-    /**
-     * @var array
-     */
-    protected $features;
+    protected array $features = [];
 
     /**
      * Constructor.
@@ -53,7 +50,7 @@ class FeatureCollection extends GeoJson implements \Countable, \IteratorAggregat
      *
      * @return Feature[]
      */
-    public function getFeatures()
+    public function getFeatures(): array
     {
         return $this->features;
     }

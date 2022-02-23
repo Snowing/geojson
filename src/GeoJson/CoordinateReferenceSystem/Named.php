@@ -12,39 +12,37 @@ use GeoJson\Exception\UnserializationException;
  */
 class Named extends CoordinateReferenceSystem
 {
-    protected $type = 'name';
+    protected string $type = 'name';
 
     /**
      * Constructor.
-     *
-     * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
-        $this->properties = array('name' => (string) $name);
+        $this->properties = ['name' => $name];
     }
 
     /**
      * Factory method for creating a Named CRS object from properties.
      *
-     * @see CoordinateReferenceSystem::jsonUnserialize()
-     * @param array|object $properties
+     * @param  array|object  $properties
      * @return Named
      * @throws UnserializationException
+     * @see CoordinateReferenceSystem::jsonUnserialize()
      */
     protected static function jsonUnserializeFromProperties($properties)
     {
-        if ( ! is_array($properties) && ! is_object($properties)) {
+        if (!is_array($properties) && !is_object($properties)) {
             throw UnserializationException::invalidProperty('Named CRS', 'properties', $properties, 'array or object');
         }
 
         $properties = new \ArrayObject($properties);
 
-        if ( ! $properties->offsetExists('name')) {
+        if (!$properties->offsetExists('name')) {
             throw UnserializationException::missingProperty('Named CRS', 'properties.name', 'string');
         }
 
-        $name = (string) $properties['name'];
+        $name = (string)$properties['name'];
 
         return new self($name);
     }

@@ -12,45 +12,42 @@ use GeoJson\Exception\UnserializationException;
  */
 class Linked extends CoordinateReferenceSystem
 {
-    protected $type = 'link';
+    protected string $type = 'link';
 
     /**
      * Constructor.
-     *
-     * @param string $href
-     * @param string $type
      */
-    public function __construct($href, $type = null)
+    public function __construct(string $href, ?string $type = null)
     {
-        $this->properties = array('href' => (string) $href);
+        $this->properties = ['href' => $href];
 
-        if (isset($type)) {
-            $this->properties['type'] = (string) $type;
+        if ($type) {
+            $this->properties['type'] = $type;
         }
     }
 
     /**
      * Factory method for creating a Linked CRS object from properties.
      *
-     * @see CoordinateReferenceSystem::jsonUnserialize()
-     * @param array|object $properties
+     * @param  array|object  $properties
      * @return Linked
      * @throws UnserializationException
+     * @see CoordinateReferenceSystem::jsonUnserialize()
      */
     protected static function jsonUnserializeFromProperties($properties)
     {
-        if ( ! is_array($properties) && ! is_object($properties)) {
+        if (!is_array($properties) && !is_object($properties)) {
             throw UnserializationException::invalidProperty('Linked CRS', 'properties', $properties, 'array or object');
         }
 
         $properties = new \ArrayObject($properties);
 
-        if ( ! $properties->offsetExists('href')) {
+        if (!$properties->offsetExists('href')) {
             throw UnserializationException::missingProperty('Linked CRS', 'properties.href', 'string');
         }
 
-        $href = (string) $properties['href'];
-        $type = isset($properties['type']) ? (string) $properties['type'] : null;
+        $href = (string)$properties['href'];
+        $type = isset($properties['type']) ? (string)$properties['type'] : null;
 
         return new self($href, $type);
     }

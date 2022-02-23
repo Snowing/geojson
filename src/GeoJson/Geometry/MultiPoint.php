@@ -12,7 +12,7 @@ namespace GeoJson\Geometry;
  */
 class MultiPoint extends Geometry
 {
-    protected $type = 'MultiPoint';
+    protected string $type = 'MultiPoint';
 
     /**
      * Constructor.

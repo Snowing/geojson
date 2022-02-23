@@ -1,27 +1,36 @@
 {
-    "name": "jmikola/geojson",
-    "type": "library",
-    "description": "GeoJSON implementation for PHP",
-    "keywords": ["geo", "geospatial", "geojson"],
-    "homepage": "https://github.com/jmikola/geojson",
-    "license": "MIT",
-    "authors": [
-        { "name": "Jeremy Mikola", "email": "jmikola@gmail.com" }
-    ],
-    "require": {
-        "php": "^7.4 || ^8.0",
-        "ext-json": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5",
-        "scrutinizer/ocular": "^1.8.1"
-    },
-    "autoload": {
-        "psr-0": { "GeoJson\\": "src/" }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.1-dev"
-        }
+  "name": "jmikola/geojson",
+  "type": "library",
+  "description": "GeoJSON implementation for PHP",
+  "keywords": [
+    "geo",
+    "geospatial",
+    "geojson"
+  ],
+  "homepage": "https://github.com/jmikola/geojson",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jeremy Mikola",
+      "email": "jmikola@gmail.com"
     }
+  ],
+  "require": {
+    "php": "^8.0",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "scrutinizer/ocular": "^1.8.1"
+  },
+  "autoload": {
+    "psr-0": {
+      "GeoJson\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.1-dev"
+    }
+  }
 }

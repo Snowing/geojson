@@ -13,32 +13,22 @@ use GeoJson\JsonUnserializable;
  */
 abstract class CoordinateReferenceSystem implements \JsonSerializable, JsonUnserializable
 {
-    /**
-     * @var array
-     */
-    protected $properties;
+    protected array $properties = [];
 
-    /**
-     * @var string
-     */
-    protected $type;
+    protected string $type;
 
     /**
      * Return the properties for this CRS object.
-     *
-     * @return array
      */
-    public function getProperties()
+    public function getProperties(): array
     {
         return $this->properties;
     }
 
     /**
      * Return the type for this CRS object.
-     *
-     * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -46,34 +36,31 @@ abstract class CoordinateReferenceSystem implements \JsonSerializable, JsonUnser
     /**
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize(): mixed
     {
-        return array(
-            'type' => $this->type,
+        return [
+            'type'       => $this->type,
             'properties' => $this->properties,
-        );
+        ];
     }
 
-    /**
-     * @see JsonUnserializable::jsonUnserialize()
-     */
-    final public static function jsonUnserialize($json)
+    final public static function jsonUnserialize(mixed $json): mixed
     {
-        if ( ! is_array($json) && ! is_object($json)) {
+        if (!is_array($json) && !is_object($json)) {
             throw UnserializationException::invalidValue('CRS', $json, 'array or object');
         }
 
         $json = new \ArrayObject($json);
 
-        if ( ! $json->offsetExists('type')) {
+        if (!$json->offsetExists('type')) {
             throw UnserializationException::missingProperty('CRS', 'type', 'string');
         }
 
-        if ( ! $json->offsetExists('properties')) {
+        if (!$json->offsetExists('properties')) {
             throw UnserializationException::missingProperty('CRS', 'properties', 'array or object');
         }
 
-        $type = (string) $json['type'];
+        $type       = (string)$json['type'];
         $properties = $json['properties'];
 
         switch ($type) {
@@ -92,10 +79,10 @@ abstract class CoordinateReferenceSystem implements \JsonSerializable, JsonUnser
      *
      * This method must be overridden in a child class.
      *
-     * @see CoordinateReferenceSystem::jsonUnserialize()
-     * @param array|object $properties
+     * @param  array|object  $properties
      * @return CoordinateReferenceSystem
      * @throws \BadMethodCallException
+     * @see CoordinateReferenceSystem::jsonUnserialize()
      */
     protected static function jsonUnserializeFromProperties($properties)
     {

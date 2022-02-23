@@ -12,7 +12,7 @@ namespace GeoJson\Geometry;
  */
 class MultiPolygon extends Geometry
 {
-    protected $type = 'MultiPolygon';
+    protected string $type = 'MultiPolygon';
 
     /**
      * Constructor.
